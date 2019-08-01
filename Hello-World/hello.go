@@ -16,8 +16,8 @@ func Hello(name string, language string) string {
 	return choosePrefix(language) + name
 }
 
-func choosePrefix(language string) (prefix string){
-	switch language{
+func choosePrefix(language string) (prefix string) {
+	switch language {
 	case spanish:
 		prefix = spanishHelloPrefix
 	case french:
@@ -27,7 +27,7 @@ func choosePrefix(language string) (prefix string){
 	}
 	return
 	// this is different from C, we can just call 'return' rather than 'return prefix'
-	// to returns the return value of the function we defined (i.e. prefix)
+	// to return the return value of the function we defined (i.e. prefix)
 }
 
 func main() {
