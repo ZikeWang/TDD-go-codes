@@ -4,6 +4,6 @@
 
 3. 本目录定义的是 `package integers` ，Go Doc（http://localhost:8000/pkg/TDD/integers/) 中的信息如下图：
 
-![image-20190810145733866](/Users/kk/Library/Application Support/typora-user-images/image-20190810145733866.png)
+https://github.com/ZikeWang/TDD-go-codes/blob/master/pics/godoc_package_integers.png
 
 4. 可以利用注释为函数添加文档，这些将出现在 Go Doc 中，就像你查看标准库的文档一样。注释写在函数定义前，必须以函数名起头。
