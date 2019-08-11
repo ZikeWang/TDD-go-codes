@@ -13,23 +13,19 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	checkshape := func(t *testing.T, shape Shape, want float64) {
-		t.Helper()
-		got := shape.Area() //calling method of struct instead of function using interface
-		if got != want {
-			t.Errorf("got %f want %f", got, want)
-		}
+	areaTest := []struct {
+		shape Shape
+		want  float64
+	}{
+		{Rectangle{10.0, 8.0}, 80.0},
+		{Circle{10.0}, 314.1592653589793},
+		{Triangle{6.0, 6.0}, 18.0},
 	}
 
-	t.Run("test rectangle", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 8.0}
-		want := 80.0
-		checkshape(t, rectangle, want)
-	})
-
-	t.Run("test circle", func(t *testing.T) {
-		circle := Circle{10.0}
-		want := 314.1592653589793
-		checkshape(t, circle, want)
-	})
+	for _, testcase := range areaTest {
+		got := testcase.shape.Area()
+		if got != testcase.want {
+			t.Errorf("got %f want %f", got, testcase.want)
+		}
+	}
 }
