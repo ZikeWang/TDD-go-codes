@@ -9,6 +9,7 @@ func TestSum(t *testing.T) {
 	Judgeequal := func(t *testing.T, got, want []int) {
 		//slice can only be compared to nil
 		//But reflect.DeepEqual is not type safe, so be careful here
+		t.Helper()
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %d want %d", got, want)
 		}
