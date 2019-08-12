@@ -15,8 +15,9 @@ var (
 
 //ErrNotFound and ErrKeyExists are defined error message
 const (
-	ErrNotFound  = DictionaryErr("couldn't find the word you search")
-	ErrKeyExists = DictionaryErr("found existing key you want to add")
+	ErrNotFound     = DictionaryErr("couldn't find the word you search")
+	ErrKeyExists    = DictionaryErr("found existing key you want to add")
+	ErrKeyNotExists = DictionaryErr("word to update doesn't exist") //in fact, it is similar with ErrNotFound
 )
 
 func (d DictionaryErr) Error() string {
@@ -44,4 +45,23 @@ func (d Dictionary) Add(key, value string) error {
 		return err
 	}
 	return nil
+}
+
+//Update change the value of appointed key with new value
+func (d Dictionary) Update(key, value string) error {
+	_, err := d.Search(key)
+	switch err {
+	case ErrNotFound:
+		return ErrKeyNotExists
+	case nil:
+		d[key] = value
+	default:
+		return err
+	}
+	return nil
+}
+
+//Delete function deletes appointed key and its value
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
 }
