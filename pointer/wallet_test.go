@@ -6,8 +6,9 @@ func TestWallet(t *testing.T) {
 	//wallet := Wallet{}
 	//each t.Run tests should be seperated, so it's better to initialize seperately
 
-	checkequal := func(t *testing.T, got, want Bitcoin) {
+	assertBalance := func(t *testing.T, wallet Wallet, want Bitcoin) {
 		t.Helper()
+		got := wallet.Balance()
 		if got != want {
 			t.Errorf("got %s want %s", got, want)
 		}
@@ -16,16 +17,14 @@ func TestWallet(t *testing.T) {
 	t.Run("test deposit and balance", func(t *testing.T) {
 		wallet := Wallet{}
 		wallet.Deposit(Bitcoin(10))
-		got := wallet.Balance()
 		want := Bitcoin(10)
-		checkequal(t, got, want)
+		assertBalance(t, wallet, want)
 	})
 
 	t.Run("test withdraw", func(t *testing.T) {
 		wallet := Wallet{balance: 20}
 		wallet.Withdraw(Bitcoin(7))
-		got := wallet.Balance()
 		want := Bitcoin(13)
-		checkequal(t, got, want)
+		assertBalance(t, wallet, want)
 	})
 }
