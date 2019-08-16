@@ -2,23 +2,24 @@ package main
 
 import (
 	"net/http"
-	"time"
 )
 
 //Racer selects and returns the faster-visiting URL between two candidates
 func Racer(a, b string) (winner string) {
-	aDuration := measureDurationTime(a)
-	bDuration := measureDurationTime(b)
-
-	if aDuration < bDuration {
+	select {
+	case <-ping(a):
 		return a
+	case <-ping(b):
+		return b
 	}
-	return b
 }
 
-//measureDurationTime calculates response time to an url
-func measureDurationTime(url string) time.Duration {
-	start := time.Now()
-	http.Get(url)
-	return time.Since(start)
+//ping uses channel to return url response
+func ping(url string) chan bool {
+	ch := make(chan bool)
+	go func() {
+		http.Get(url)
+		ch <- true
+	}()
+	return ch
 }
