@@ -1,17 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 )
 
-//Racer selects and returns the faster-visiting URL between two candidates
-func Racer(a, b string) (winner string) {
+//ConfigurableRacer selects and returns the faster-visiting URL between two candidates within configurable delays
+func ConfigurableRacer(a, b string, delay time.Duration) (winner string, err error) {
 	select {
 	case <-ping(a):
-		return a
+		return a, nil
 	case <-ping(b):
-		return b
+		return b, nil
+	case <-time.After(delay):
+		return "", fmt.Errorf("time out waiting for '%s' and '%s'", a, b)
 	}
+}
+
+//Racer has a fixed delay of 10s
+func Racer(a, b string) (winner string, err error) {
+	return ConfigurableRacer(a, b, 10*time.Second)
 }
 
 //ping uses channel to return url response
