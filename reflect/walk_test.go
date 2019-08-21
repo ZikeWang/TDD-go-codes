@@ -23,9 +23,9 @@ func TestWalk(t *testing.T) {
 			Name: "struct test case with two string fields",
 			Input: struct {
 				Name1 string
-				Name2 string
-			}{Name1: "Jack", Name2: "Mike"},
-			Expected: []string{"Jack", "Mike"},
+				Age   int
+			}{Name1: "Jack", Age: 23},
+			Expected: []string{"Jack"},
 		},
 	}
 
