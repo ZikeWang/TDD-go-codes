@@ -11,3 +11,5 @@ indent_size = 4
 [.*]
 indent_style = tab
 indent_size = 4
+
+# another way to check the file on github.com with different indentation is to append '?ts=4' or '?ts=8'.etc to the URL to change the tab size
