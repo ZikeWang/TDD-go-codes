@@ -49,6 +49,18 @@ func TestWalk(t *testing.T) {
 			},
 			Expected: []string{"Mike", "L.A."},
 		},
+
+		{
+			Name: "Pointer Struct test case",
+			Input: &Person{
+				Name: "Miller",
+				Profile: Profile{
+					Age:  25,
+					City: "Paris",
+				},
+			},
+			Expected: []string{"Miller", "Paris"},
+		},
 	}
 
 	for _, test := range cases {
