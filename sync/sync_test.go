@@ -1,14 +1,25 @@
 package main
 
-import "testing"
+import (
+	"sync"
+	"testing"
+)
 
 func TestCount(t *testing.T) {
-	t.Run("basic method running test", func(t *testing.T) {
-		iterations := 3
+	t.Run("basic struct's methods running test", func(t *testing.T) {
+		iterations := 1000
 		counter := Counter{}
+
+		var wg sync.WaitGroup
+		wg.Add(iterations)
+
 		for i := 0; i < iterations; i++ {
-			counter.Inc()
+			go func(w *sync.WaitGroup) {
+				counter.Inc()
+				w.Done()
+			}(&wg)
 		}
+		wg.Wait()
 
 		assertCounter(t, counter, iterations)
 	})
