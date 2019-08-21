@@ -22,6 +22,30 @@ func TestWalk(t *testing.T) {
 		Expected []string
 	}{
 		{
+			Name:     "string test",
+			Input:    "Peter",
+			Expected: []string{"Peter"},
+		},
+
+		{
+			Name: "array test",
+			Input: [2]Profile{
+				{21, "Melbourn"},
+				{22, "Sydney"},
+			},
+			Expected: []string{"Melbourn", "Sydney"},
+		},
+
+		{
+			Name: "map test",
+			Input: map[string]string{
+				"China":  "Beijing",
+				"Russia": "Moscow",
+			},
+			Expected: []string{"Beijing", "Moscow"},
+		},
+
+		{
 			Name: "struct test case with only one string field",
 			Input: struct {
 				Name string
@@ -60,6 +84,15 @@ func TestWalk(t *testing.T) {
 				},
 			},
 			Expected: []string{"Miller", "Paris"},
+		},
+
+		{
+			Name: "Slice test case, actually a slice of struct",
+			Input: []Profile{
+				{26, "London"},
+				{27, "Boston"},
+			},
+			Expected: []string{"London", "Boston"},
 		},
 	}
 
