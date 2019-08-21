@@ -37,15 +37,6 @@ func TestWalk(t *testing.T) {
 		},
 
 		{
-			Name: "map test",
-			Input: map[string]string{
-				"China":  "Beijing",
-				"Russia": "Moscow",
-			},
-			Expected: []string{"Beijing", "Moscow"},
-		},
-
-		{
 			Name: "struct test case with only one string field",
 			Input: struct {
 				Name string
@@ -107,5 +98,38 @@ func TestWalk(t *testing.T) {
 				t.Errorf("got %v want %v", got, test.Expected)
 			}
 		})
+	}
+
+	t.Run("map test", func(t *testing.T) {
+		tmap := map[string]string{
+			"China":  "Beijing",
+			"Russia": "Moscow",
+		}
+
+		var got []string
+
+		walk(tmap, func(input string) {
+			got = append(got, input)
+		})
+
+		assertContains(t, got, "Beijing")
+		assertContains(t, got, "Moscow")
+
+	})
+}
+
+func assertContains(t *testing.T, cadidates []string, target string) {
+	t.Helper()
+
+	flag := false
+
+	for _, value := range cadidates {
+		if value == target {
+			flag = true
+		}
+	}
+
+	if !flag {
+		t.Errorf("target value %s not contained", target)
 	}
 }
