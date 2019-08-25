@@ -71,7 +71,8 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
  *     WriteHeader(statusCode int)
  * }
  * 自定义的类型中所有方法都是结构体的written标志写为true，用于模拟完成了response的写入操作
- * 定义这样一个结构体及其方法的目的就是测试在cancel的情况下不会完成写入response的操作，httptest.ResponseRecorder不支持这样的测试
+ * 定义这样一个结构体及其方法的目的就是测试在cancel的情况下不会完成写入response的操作
+ * 而httptest.ResponseRecorder不支持这样的测试，因为在v2.0版本中只是通过显式的在SpyStore结构体中将一个bool域cancel写true或者false来判断是否取消，无法判断ResponseWriter到底在cancel后是否有写过数据
  */
 
 // SpyResponseWriter checks whether a response has been written
