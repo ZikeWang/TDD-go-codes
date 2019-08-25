@@ -19,7 +19,7 @@ type SpyStore struct {
 func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 	data := make(chan string, 1)
 
-	//time.Sleep(8 * time.Millisecond)
+	time.Sleep(T2)
 	go func() {
 		var result string
 		for _, c := range s.response {
@@ -44,7 +44,7 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 				fmt.Println("cancelling")
 				return
 			default:
-				time.Sleep(6 * time.Millisecond)
+				time.Sleep(T3)
 				result += string(c)
 				fmt.Println(string(c))
 			}

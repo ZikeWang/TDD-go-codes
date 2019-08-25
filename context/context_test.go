@@ -42,7 +42,7 @@ func TestServer(t *testing.T) {
 		 */
 		cancellingCtx, cancel := context.WithCancel(request.Context())
 		// AfterFunc方法会等待其第一个参数定义的时间流逝后，调用第二个参数传入的函数，此时即调用前面所述的cancel函数
-		time.AfterFunc(5*time.Millisecond, cancel)
+		time.AfterFunc(T1, cancel)
 		// WithContext方法会返回调用者（即等号右侧request）的一个浅拷贝，该拷贝中包含了实参发生的context修改
 		request = request.WithContext(cancellingCtx)
 
