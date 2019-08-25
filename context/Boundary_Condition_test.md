@@ -14,7 +14,7 @@ svr.ServeHTTP(response, request)
 
 * `testdouble.go` 中Fetch方法的实现
 
-```go, tab-size=4
+```go
 func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 	data := make(chan string, 1)
 
