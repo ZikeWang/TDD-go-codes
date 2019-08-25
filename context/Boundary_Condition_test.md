@@ -16,7 +16,7 @@ svr.ServeHTTP(response, request)
 
 ```go
 func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
-  data := make(chan string, 1)
+	data := make(chan string, 1)
 
   //go func执行延迟
 	time.Sleep(T2)
@@ -26,15 +26,15 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 			select {
 			case <-ctx.Done():
 				s.t.Log("spy store got cancelled")
-        // extra log before return
-        fmt.Println("cancelling")
+				// extra log before return
+				fmt.Println("cancelling")
 				return
 			default:
-        //default执行延迟
+				//default执行延迟
 				time.Sleep(T3)
 				result += string(c)
-        // extra log here
-        fmt.Println(string(c))
+				// extra log here
+				fmt.Println(string(c))
 			}
 		}
 		data <- result
@@ -42,12 +42,12 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 
 	select {
 	case <-ctx.Done():
-    // extra log before return
-    fmt.Println("Done")
+		// extra log before return
+		fmt.Println("Done")
 		return "", ctx.Err()
 	case res := <-data:
-    // extra log before return
-    fmt.Println("Response")
+		// extra log before return
+		fmt.Println("Response")
 		return res, nil
 	}
 }
