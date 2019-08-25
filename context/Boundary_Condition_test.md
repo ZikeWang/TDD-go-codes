@@ -61,13 +61,13 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 
 通过增加延迟来控制程序块的执行顺序，下表为不同配置下的测试结果。
 
-| 测试编号 | cancel延迟 T1 | go func延迟 T2 | default延迟 T3 | 测试结果 |
-| :------: | :-----------: | :------------: | :------------: | :------: |
-| original |       5       |       0        |       10       |          |
-|    1     |       0       |       0        |       0        |   随机   |
-|    2     |       0       |       0        |       1        |          |
-|    3     |      10       |       0        |       3        |          |
-|    4     |       5       |       8        |       10       |          |
+| 测试编号 | cancel延迟 T1 | go func延迟 T2 | default延迟 T3 |                           测试结果                           |
+| :------: | :-----------: | :------------: | :------------: | :----------------------------------------------------------: |
+| original |       5       |       0        |       10       | ![original](https://github.com/ZikeWang/TDD-go-codes/blob/master/context/test_results_screenshot/case_original.png) |
+|    1     |       0       |       0        |       0        | ![1_arbitrary_results](https://github.com/ZikeWang/TDD-go-codes/blob/master/context/test_results_screenshot/1.png) |
+|    2     |       0       |       0        |       1        | ![2](https://github.com/ZikeWang/TDD-go-codes/blob/master/context/test_results_screenshot/2.png) |
+|    3     |      10       |       0        |       3        | ![3](https://github.com/ZikeWang/TDD-go-codes/blob/master/context/test_results_screenshot/3.png) |
+|    4     |       5       |       8        |       10       | ![4](https://github.com/ZikeWang/TDD-go-codes/blob/master/context/test_results_screenshot/4.png) |
 
 
 
