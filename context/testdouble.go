@@ -26,9 +26,12 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 
 			/*
 			 * select中的case语句必须是一个channel操作
-			 * 1. 如果有多个case都可以运行，select会随机公平地选出一个执行，其他不会执行。
-			 * 2. 如果没有可运行的case语句，且有default语句，那么就会执行default的动作。
-			 * 3. 如果没有可运行的case语句，且没有default语句，select将阻塞，直到某个case通信可以运行
+			 * 1、如果多个通道都阻塞了，会等待知道其中一个通道可以处理。
+			 * 2、如果多个通道都可以处理，随机选取一个处理。
+			 * 3、如果没有通道操作可以操作并且写了default语句，会执行：default（永远是可以运行的）
+			 * 4、如果防止select堵塞，可以写default来确保发送不被堵塞，没有case的select就会一直堵塞。
+			 * 5、当select做选择case和default操作时，case的优先级大于default。
+			 * 6、select语句实现了一种监听模式，通常在无限循环中使用，通过在某种情况下，通过break退出循环。
 			 */
 
 			select {
@@ -42,7 +45,7 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 			case <-ctx.Done():
 				s.t.Log("spy store got cancelled") //只有加上-v标志才会显示以下Log的打印内容
 				fmt.Println("cancelling")
-				return
+				return //使用return会跳出for循环，如果使用break则只会跳出select
 			default:
 				time.Sleep(T3)
 				result += string(c)
